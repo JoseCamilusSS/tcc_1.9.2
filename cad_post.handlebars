@@ -1,0 +1,72 @@
+{{#if user}}
+<!--inicio container-fluid-->
+<div class="container-sm">
+    <h3 class="mt-5"><small class="text-muted">Nova postagem</small></h3>
+    <form class="row g-5" method="POST" action="cad_post/cadastrado">
+        <div class="col-md-6">
+            <label for="inputEmail4" class="form-label txt">Titulo</label>
+            <input type="text" name="n_titulo" class="form-control" id="inputEmail4" placeholder="Ex:Vaga para faxineiro." required minlength="8">
+        </div>
+        <div class="col-md-6">
+            <label for="inputState" class="form-label txt">Categoria</label>
+            <select id="inputState" name="n_categoria" class="form-select" required>
+                {{#each categoria}}
+                <option value="{{_id}}">{{nome_}}</option>
+                {{else}}
+                <option value="0">Nenhuma categoria registrada</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="col-3">
+            <label for="inputAddress" class="form-label txt">Vagas disponiveis</label>
+            <input type="number" name="n_quant_vagas" class="form-control" id="quant-vagas" placeholder="Digite o numero de vagas disponiveis para o emprego" required minlength="1" maxlength="3">
+            {{#each erros}}
+                <div class="alert-danger">{{texto}}</div>
+                {{else}}
+            {{/each}}
+        </div>
+        <div class="col-md-4">
+            <label for="inputState" class="form-label txt">Pretenção de salário</label>
+            <select id="inputState" name="n_salario" class="form-select" required>
+                <option>Menos de R$1.000,00</option>
+                <option>Entre R$1.000,00 e R$2.000,00</option>
+                <option>Entre R$2.000,00 e R$3.000,00</option>
+                <option>Entre R$3.000,00 e R$4.000,00</option>
+                <option>Entre R$4.000,00 e R$5.000,00</option>
+                <option>Acima de R$5.000,00</option>
+            </select>
+        </div>
+        
+        <div class="col-md-5">
+            <label class="form-label txt" for="inputEmail4">Link do formulário</label>
+            <input type="url" name="n_link_formulario" class="form-control" id="link-form" placeholder="Insira o link do formulário" required maxlength="120">
+        </div>
+        {{#each usuario}}
+        <div class="col-md-5">
+            <input type="hidden" name="n_usu" value="{{id}}">
+        </div>
+        {{else}}
+        {{/each}}
+        <div>
+            <div class="mb-1 txt">
+                <label for="exampleFormControlTextarea1" class="form-label">Descrição</label>
+                <textarea class="form-control" name="n_descricao" id="exampleFormControlTextarea1" rows="5" placeholder="Coloque aqui a descrição sobre sua vaga de emprego. Não economize palavras." required minlength="13" maxlength="2000"></textarea>
+            </div>
+        </div>
+        <div class="col-12 mb-2">
+            <a href="/routes/meus_form"><button type="button" class="btn btn-secondary">Voltar</button></a>
+            <button type="reset" class="btn btn-danger">Limpar</button>
+            <button type="submit" name="cadastra_post" class="btn btn-primary">Salvar e postar</button>
+            <!--<input type="submit" name="cadastra_post" class="btn btn-primary"></input>-->
+        </div>
+    </form>
+</div><!--fim container-fluid-->
+<style>
+    .txt {
+        font-size: 18px;
+    }
+</style>
+{{else}}
+<div class="container-sm mt-4">
+<h1>Você só terá acesso a esta página se estiver logado</h1>
+{{/if}}
